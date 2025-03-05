@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语听力练习</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body class="flex justify-center items-start py-10">
+    <div class="container max-w-4xl mx-auto px-4">
+        <h1 class="text-3xl font-bold mb-8 text-center">英语听力练习</h1>
+        <div class="audio-player p-6 mb-8">
+            <div class="mb-6">
+                <h2 class="text-lg font-semibold mb-4">声音设置</h2>
+                <div class="grid grid-cols-2 gap-6">
+                    <!-- 女声设置 -->
+                    <div>
+                        <h3 class="text-base font-medium mb-4">女声</h3>
+                        <div class="flex flex-col gap-6">
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-2">音色选择</label>
+                                <div class="relative">
+                                    <button
+                                        class="speed-selector w-full px-4 py-2 !rounded-button text-sm hover:text-primary whitespace-nowrap text-left flex justify-between items-center"
+                                        id="female-voice-selector" name="voiceselector1">
+                                        <span id="selected-female-voice">audiobook_male_1</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                    <div class="hidden absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-md shadow-lg"
+                                        id="female-voice-options">
+                                        <div class="py-1">
+                                            <button class="w-full px-4 py-2 text-sm text-left hover:bg-gray-100"
+                                                name="female-voice1"
+                                                onclick="selectFemaleVoice(this)">audiobook_male_1</button>
+                                            <button class="w-full px-4 py-2 text-sm text-left hover:bg-gray-100"
+                                                name="female-voice2"
+                                                onclick="selectFemaleVoice(this)">presenter_female</button>
+                                            <button class="w-full px-4 py-2 text-sm text-left hover:bg-gray-100"
+                                                name="female-voice3"
+                                                onclick="selectFemaleVoice(this)">audiobook_female_1</button>
+                                            <button class="w-full px-4 py-2 text-sm text-left hover:bg-gray-100"
+                                                name="female-voice4"
+                                                onclick="selectFemaleVoice(this)">presenter_male</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 男声设置 -->
+                    <div>
+                        <h3 class="text-base font-medium mb-4">男声</h3>
+                        <div class="flex flex-col gap-6">
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-2">音色选择</label>
+                                <div class="relative">
+                                    <button
+                                        class="speed-selector w-full px-4 py-2 !rounded-button text-sm hover:text-primary whitespace-nowrap text-left flex justify-between items-center"
+                                        id="male-voice-selector" name="voiceselector2">
+                                        <span id="selected-male-voice">audiobook_male_1</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                    <div class="hidden absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-md shadow-lg"
+                                        id="male-voice-options" name="voiceselector2">
+                                        <div class="py-1">
+                                            <button class="w-full px-4 py-2 text-sm text-left hover:bg-gray-100"
+                                                name="male-voice1"
+                                                onclick="selectMaleVoice(this)">audiobook_male_1</button>
+                                            <button class="w-full px-4 py-2 text-sm text-left hover:bg-gray-100"
+                                                name="male-voice2"
+                                                onclick="selectMaleVoice(this)">presenter_female</button>
+                                            <button class="w-full px-4 py-2 text-sm text-left hover:bg-gray-100"
+                                                name="male-voice3"
+                                                onclick="selectMaleVoice(this)">audiobook_female_1</button>
+                                            <button class="w-full px-4 py-2 text-sm text-left hover:bg-gray-100"
+                                                name="male-voice4"
+                                                onclick="selectMaleVoice(this)">presenter_male</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-2 mt-6">
+                        <div class="grid grid-cols-2 gap-6">
+
+                            <form name="speed-form">
+                                <div>
+                                    <label class="block text-sm text-gray-600 mb-2">女声速度</label>
+                                    <input type="text" name="female-speed" class="form-input" placeholder="请输入女声速度">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm text-gray-600 mb-2">男声速度</label>
+                                    <input type="text" name="male-speed" class="form-input" placeholder="请输入男声速度">
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="mb-6">
+                <div class="grid grid-cols-2 gap-6">
+                    <form name="tune-form">
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-2">女声音调</label>
+                            <input type="text" name="female-tune" class="form-input" placeholder="请输入女声音调">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-2">男声音调</label>
+                            <input type="text" name="male-tune" class="form-input" placeholder="请输入男声音调">
+                        </div>
+                </div>
+                </form>
+
+            </div>
+            <div class="mb-6">
+                <div class="grid grid-cols-2 gap-6">
+                    <form name="volume-form">
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-2">女声音量</label>
+                            <input type="text" name="female-volume" class="form-input" placeholder="请输入女声音量">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-2">男声音量</label>
+                            <input type="text" name="male-volume" class="form-input" placeholder="请输入男声音量">
+                        </div>
+                </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="flex justify-center gap-4">
+            <button
+                class="bg-primary text-white px-8 py-3 !rounded-button flex items-center gap-2 hover:bg-opacity-90 whitespace-nowrap"
+                name="female_preview_button" value="female_preview" onclick="previewVoice('female')">
+                <i class="fas fa-play"></i>
+                <span>试听女声</span>
+            </button>
+            <button
+                class="bg-primary text-white px-8 py-3 !rounded-button flex items-center gap-2 hover:bg-opacity-90 whitespace-nowrap"
+                name="male_preview_button" value="male_preview" onclick="previewVoice('male')">
+                <i class="fas fa-play"></i>
+                <span>试听男声</span>
+            </button>
+        </div>
+        <audio id="audio-player" controls>
+            <source src="/preview_voice" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-sm">
+        <h2 class="text-lg font-semibold mb-4">上传文件</h2>
+        <form id="upload-form" enctype="multipart/form-data">
+            <div class="mb-4">
+                <label class="block text-sm text-gray-600 mb-2">文本输入</label>
+                <textarea
+                    class="w-full px-4 py-2 border border-gray-300 rounded-button text-sm focus:border-primary outline-none resize-none"
+                    rows="5" placeholder="在此输入需要转换的文本内容..." name="text-input" id="text-input"></textarea>
+            </div>
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                <p class="text-gray-600">点击或拖拽文件到此处上传</p>
+                <input type="file" class="hidden" id="file-upload" name="file-upload">
+                <button
+                    class="mt-4 bg-primary text-white px-6 py-2 rounded-button hover:bg-opacity-90 whitespace-nowrap"
+                    onclick="document.getElementById('file-upload').click();">
+                    选择文件
+                </button>
+            </div>
+            <button type="button"
+                class="mt-4 bg-primary text-white px-6 py-2 rounded-button hover:bg-opacity-90 whitespace-nowrap"
+                onclick="uploadData()">
+                上传
+            </button>
+        </form>
+    </div>
+    </div>
+    <script>
+        // 获取女性语音选择器元素
+        const femaleVoiceSelector = document.getElementById('female-voice-selector');
+        // 获取女性语音选项元素
+        const femaleVoiceOptions = document.getElementById('female-voice-options');
+        // 获取已选女性语音元素
+        const selectedFemaleVoice = document.getElementById('selected-female-voice');
+        // 获取男性语音选择器元素
+        const maleVoiceSelector = document.getElementById('male-voice-selector');
+        // 获取男性语音选项元素
+        const maleVoiceOptions = document.getElementById('male-voice-options');
+        // 获取已选男性语音元素
+        const selectedMaleVoice = document.getElementById('selected-male-voice');
+        // 为文档添加点击事件监听器
+        document.addEventListener('click', function (event) {
+            // 如果点击的目标不在女性语音选择器内，则隐藏女性语音选项
+            if (!femaleVoiceSelector.contains(event.target)) {
+                femaleVoiceOptions.classList.add('hidden');
+            }
+            // 如果点击的目标不在男性语音选择器内，则隐藏男性语音选项
+            if (!maleVoiceSelector.contains(event.target)) {
+                maleVoiceOptions.classList.add('hidden');
+            }
+        });
+        // 为女性语音选择器添加点击事件监听器
+        // 为女性声音选择器添加点击事件监听器
+        femaleVoiceSelector.addEventListener('click', function () {
+            // 切换女性声音选项的显示状态
+            femaleVoiceOptions.classList.toggle('hidden');
+            // 隐藏男性声音选项
+            maleVoiceOptions.classList.add('hidden');
+        });
+        // 为男性声音选择器添加点击事件监听器
+        maleVoiceSelector.addEventListener('click', function () {
+            // 切换男性声音选项的显示状态
+            maleVoiceOptions.classList.toggle('hidden');
+            // 隐藏女性声音选项
+            femaleVoiceOptions.classList.add('hidden');
+        });
+        // 选择女性声音的函数
+        function selectFemaleVoice(button) {
+            // 将选中的女性声音按钮的文本内容设置为选中的女性声音显示区域
+            selectedFemaleVoice.textContent = button.textContent;
+            // 隐藏女性声音选项
+            femaleVoiceOptions.classList.add('hidden');
+        }
+        // 选择男性声音的函数
+        function selectMaleVoice(button) {
+            // 将选中的男性声音按钮的文本内容设置为选中的男性声音显示区域
+            selectedMaleVoice.textContent = button.textContent;
+            maleVoiceOptions.classList.add('hidden');
+        }
+
+        function uploadData() {
+            var fileInput = document.getElementById('file-upload');
+            var file = fileInput.files[0];
+            var textInput = document.getElementById('text-input').value;
+
+            var formData = new FormData();
+            formData.append("file", file);
+            formData.append("text", textInput);
+
+            $.ajax({
+                url: '/preview_voice', // 后台url
+                data: formData,
+                cache: false,
+                async: true,
+                type: "POST",
+                dataType: 'json', // 数据返回类型，可以是xml、json等
+                processData: false,
+                contentType: false,
+                success: function (data) { // 成功，回调传来的success方法
+                    success(data);
+                },
+            });
+        }
+
+
+        function previewVoice(gender) {
+            // 更新slected-male-voice的文本内容
+            var fevoice = document.getElementById('selected-female-voice').textContent;
+            // 更新selected-male-voice的文本内容
+            var mavoice = document.getElementById('selected-male-voice').textContent;
+            var fespeed = document.getElementsByName('female-speed')[0].value;
+            var maspeed = document.getElementsByName('male-speed')[0].value;
+            var fetune = document.getElementsByName('female-tune')[0].value;
+            var matune = document.getElementsByName('male-tune')[0].value;
+            var fevolume = document.getElementsByName('female-volume')[0].value;
+            var mavolume = document.getElementsByName('male-volume')[0].value;
+
+            $.ajax({
+                url: '/preview_voice',
+                type: 'POST',
+                contentType: 'application/json',
+
+                data: JSON.stringify({
+                    gender: gender, female_voice: fevoice,
+                    male_voice: mavoice, female_speed: fespeed, male_speed: maspeed,
+                    female_tune: fetune, male_tune: matune, fevolume: fevolume, mavolume: mavolume
+                }),
+                success: function (response, status, xhr) {
+                    // 成功时的回调函数
+                    var contentType = xhr.getResponseHeader('Content-Type');
+                    if (contentType.indexOf('audio') !== -1) {
+                        // 如果响应的内容类型是音频
+                        var blob = new Blob([response], { type: contentType });
+                        var url = URL.createObjectURL(blob);
+                        var audioPlayer = $('#audio-player')[0];
+                        $('#audio-player source').attr('src', url);
+                        audioPlayer.load(); // 重新加载音频元素
+                        // 等待加载完成后再播放
+                        audioPlayer.onloadedmetadata = function () {
+                            audioPlayer.play(); // 自动播放音频
+                        };
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // 出错时的回调函数
+                    console.error("An error occurred: " + status + " - " + error);
+                }
+            });
+        }
+
+    </script>
+</body>
+
+</html>
